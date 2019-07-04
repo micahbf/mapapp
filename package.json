@@ -8,11 +8,13 @@
     "lint": "tslint"
   },
   "dependencies": {
+    "mongodb": "^3.2.7",
     "source-map-support": "^0.5.10"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
     "@types/jest": "^24.0.15",
+    "@types/mongodb": "^3.1.28",
     "@types/node": "^10.12.18",
     "jest": "^24.8.0",
     "serverless-webpack": "^5.2.0",

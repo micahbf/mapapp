@@ -4,6 +4,7 @@
   "description": "Powers the live map on micah.motorcycles",
   "main": "handler.js",
   "scripts": {
+    "check": "tsc --noEmit",
     "test": "jest",
     "lint": "tslint"
   },

@@ -9,6 +9,7 @@
     "lint": "tslint"
   },
   "dependencies": {
+    "aws-sdk": "^2.488.0",
     "mongodb": "^3.2.7",
     "source-map-support": "^0.5.10"
   },

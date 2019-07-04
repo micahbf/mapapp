@@ -1,22 +1,27 @@
 {
   "name": "mapapp",
   "version": "1.0.0",
-  "description": "Serverless webpack example using Typescript",
+  "description": "Powers the live map on micah.motorcycles",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "lint": "tslint"
   },
   "dependencies": {
     "source-map-support": "^0.5.10"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
+    "@types/jest": "^24.0.15",
     "@types/node": "^10.12.18",
+    "jest": "^24.8.0",
     "serverless-webpack": "^5.2.0",
+    "ts-jest": "^24.0.2",
+    "ts-lint": "^4.5.1",
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
     "webpack": "^4.29.0"
   },
-  "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
+  "author": "Micah Buckley-Farlee",
   "license": "MIT"
 }

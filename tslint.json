@@ -4,9 +4,10 @@
   ],
   "jsRules": {},
   "rules": {
+    "interface-name": false,
     "object-literal-sort-keys": false,
     "quotemark": [true, "single", "avoid-escape"],
-    "semicolon": "never",
+    "semicolon": [true, "never"],
     "trailing-comma": false,
     "variable-name": {
       "options": [

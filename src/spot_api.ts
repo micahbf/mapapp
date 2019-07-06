@@ -1,56 +1,74 @@
 import { RestClient } from 'typed-rest-client/RestClient'
 
-export interface SpotMessage {
-  '@clientUnixTime': string
-  id: number
-  messengerId: string
-  messengerName: string
-  unixTime: number
-  messageType: string
-  latitude: number
-  longitude: number
-  modelId: string
-  showCustomMsg: string
-  dateTime: string
-  messageDetail: string
-  batteryState: string
-  hidden: number
-  altitude: number
-}
+export namespace SpotAPI {
+  export interface Message {
+    '@clientUnixTime': string
+    id: number
+    messengerId: string
+    messengerName: string
+    unixTime: number
+    messageType: string
+    latitude: number
+    longitude: number
+    modelId: string
+    showCustomMsg: string
+    dateTime: string
+    messageDetail: string
+    batteryState: string
+    hidden: number
+    altitude: number
+  }
 
-interface SpotFeed {
-  id: string
-  name: string
-  description: string
-  status: string
-  usage: number
-  daysRange: number
-  detailedMessageShown: boolean
-  type: string
-}
+  interface Feed {
+    id: string
+    name: string
+    description: string
+    status: string
+    usage: number
+    daysRange: number
+    detailedMessageShown: boolean
+    type: string
+  }
 
-interface SpotFeedResponse {
-  response: {
-    feedMessageResponse: {
-      count: number
-      feed: SpotFeed
-      totalCount: number
-      activityCount: number
-      messages: {
-        message: SpotMessage[]
+  interface SuccessfulResponse {
+    response: {
+      feedMessageResponse: {
+        count: number
+        feed: Feed
+        totalCount: number
+        activityCount: number
+        messages: {
+          message: Message[]
+        }
       }
     }
   }
-}
 
-export class SpotAPI {
-  public static async getLatestMessages(feedId: string) {
-    const client = new RestClient(SpotAPI.userAgent, SpotAPI.baseUrl)
-    const response = await client.get<SpotFeedResponse>(`${feedId}/message.json`)
-
-    return response.result.response.feedMessageResponse.messages.message
+  interface ErrorResponse {
+    response: {
+      errors: {
+        error: {
+          code: string
+          text: string
+          description: string
+        }
+      }
+    }
   }
 
-  private static userAgent = 'mapapp (micah.motorcycles)'
-  private static baseUrl = 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/'
+  export type FeedResponse = SuccessfulResponse | ErrorResponse
+
+  const userAgent = 'mapapp (micah.motorcycles)'
+  const baseUrl = 'https://api.findmespot.com/spot-main-web/consumer/rest-api/2.0/public/feed/'
+
+  export async function getLatestMessages(feedId: string) {
+    const client = new RestClient(userAgent, baseUrl)
+    const response = await client.get<FeedResponse>(`${feedId}/message.json`)
+
+    return response.result
+  }
+
+  export function isError(response: FeedResponse): response is ErrorResponse {
+    return (response as ErrorResponse).response.errors !== undefined
+  }
 }

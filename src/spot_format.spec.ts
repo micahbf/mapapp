@@ -1,5 +1,5 @@
 import { SpotMessage } from './spot_api'
-import { formatSpotMessage } from './spot_formatter'
+import { formatSpotMessage } from './spot_format'
 
 const spotMsg: SpotMessage = {
   '@clientUnixTime': '0',

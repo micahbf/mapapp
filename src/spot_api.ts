@@ -1,8 +1,10 @@
 import { RestClient } from 'typed-rest-client/RestClient'
 
 export interface SpotMessage {
+  '@clientUnixTime': string
   id: number
   messengerId: string
+  messengerName: string
   unixTime: number
   messageType: string
   latitude: number

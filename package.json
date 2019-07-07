@@ -23,6 +23,7 @@
     "@types/node": "^10.12.18",
     "dotenv": "^8.0.0",
     "jest": "^24.8.0",
+    "serverless-domain-manager": "^3.2.6",
     "serverless-webpack": "^5.2.0",
     "ts-jest": "^24.0.2",
     "ts-lint": "^4.5.1",

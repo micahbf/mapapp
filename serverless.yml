@@ -12,6 +12,10 @@ provider:
   runtime: nodejs10.x
 
 functions:
+  persistSpot:
+    handler: handler.scheduledPersistSpot
+    events:
+      - schedule: rate(5 minutes)
   hello:
     handler: handler.hello
     events:

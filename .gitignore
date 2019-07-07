@@ -8,5 +8,8 @@ jspm_packages
 # Webpack directories
 .webpack
 
+# dotenv
+.env
+
 # MacOS
 .DS_Store

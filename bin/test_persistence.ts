@@ -1,5 +1,4 @@
 /* tslint:disable:no-console */
-
 import { persistSpot } from '../src/spot_persistence'
 
 (async () => {

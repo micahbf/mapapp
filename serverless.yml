@@ -10,7 +10,16 @@ provider:
   runtime: nodejs10.x
   stage: prod
 
+package:
+  individually: true
+
 custom:
+  webpack:
+    packager: 'yarn'
+    excludeFiles: 'src/**/*.spec.ts'
+    includeModules:
+      forceExclude:
+        - aws-sdk
   customDomain:
     domainName: mapapp.micah.motorcycles
     stage: prod
@@ -25,7 +34,7 @@ envVars: &envVars
 
 functions:
   persistSpot:
-    handler: handler.scheduledPersistSpot
+    handler: src/handlers/scheduled_persist_spot.handle
     environment:
       <<: *envVars
     events:
@@ -33,7 +42,7 @@ functions:
         enabled: true
         rate: rate(30 minutes)
   hello:
-    handler: handler.hello
+    handler: src/handlers/hello.handle
     events:
       - http:
           method: get

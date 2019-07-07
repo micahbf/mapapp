@@ -2,6 +2,7 @@
   "name": "mapapp",
   "version": "1.0.0",
   "description": "Powers the live map on micah.motorcycles",
+  "sideEffects": false,
   "main": "handler.js",
   "scripts": {
     "check": "tsc --noEmit",
@@ -10,6 +11,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.488.0",
+    "dotenv": "^8.0.0",
     "mongodb": "^3.2.7",
     "source-map-support": "^0.5.10",
     "typed-rest-client": "^1.5.0"
@@ -21,7 +23,6 @@
     "@types/jest": "^24.0.15",
     "@types/mongodb": "^3.1.28",
     "@types/node": "^10.12.18",
-    "dotenv": "^8.0.0",
     "jest": "^24.8.0",
     "serverless-domain-manager": "^3.2.6",
     "serverless-webpack": "^5.2.0",
@@ -29,7 +30,8 @@
     "ts-lint": "^4.5.1",
     "ts-loader": "^5.3.3",
     "typescript": "^3.2.4",
-    "webpack": "^4.29.0"
+    "webpack": "^4.29.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "author": "Micah Buckley-Farlee",
   "license": "MIT"

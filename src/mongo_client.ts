@@ -3,6 +3,6 @@ import { parse } from 'url'
 import { mongoUrl } from './config'
 
 export async function mongoDb(): Promise<Db> {
-  const connection = await MongoClient.connect(mongoUrl)
+  const connection = await MongoClient.connect(mongoUrl, {useNewUrlParser: true})
   return connection.db(parse(mongoUrl).pathname.slice(1))
 }

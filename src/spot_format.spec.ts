@@ -1,7 +1,7 @@
-import { SpotMessage } from './spot_api'
+import { SpotAPI } from './spot_api'
 import { formatSpotMessage } from './spot_format'
 
-const spotMsg: SpotMessage = {
+const spotMsg: SpotAPI.Message = {
   '@clientUnixTime': '0',
   'id': 1223571014,
   'messengerId': '0-3504223',

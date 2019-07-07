@@ -29,7 +29,12 @@ async function persistMessagesToMongo(messages: SpotAPI.Message[]): Promise<Pers
     const insertResult = await db.collection(mongoCollectionName).insertMany(formatted, {ordered: false})
     return {success: true, message: `Inserted ${insertResult.insertedCount} messages`}
   } catch (e) {
-    return {success: false, message: `Mongo error: ${e.message}`}
+    if (e.result.result.ok === 1) {
+      const inserted = e.result.result.nInserted
+      return {success: true, message: `Inserted ${inserted} messages`}
+    } else {
+      return {success: false, message: `Mongo error: ${e.message}`}
+    }
   }
 }
 

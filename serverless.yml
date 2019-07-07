@@ -38,9 +38,7 @@ functions:
     environment:
       <<: *envVars
     events:
-      - schedule:
-        enabled: true
-        rate: rate(30 minutes)
+      - schedule: rate(30 minutes)
   hello:
     handler: src/handlers/hello.handle
     events:

@@ -21,7 +21,7 @@ export async function persistSpot(): Promise<PersistenceResult> {
   }
 }
 
-async function persistMessagesToMongo(messages: SpotAPI.Message[]): Promise<PersistenceResult> {
+export async function persistMessagesToMongo(messages: SpotAPI.Message[]): Promise<PersistenceResult> {
   const formatted = messages.map(m => formatSpotMessage(m))
 
   try {

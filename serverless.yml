@@ -15,7 +15,9 @@ functions:
   persistSpot:
     handler: handler.scheduledPersistSpot
     events:
-      - schedule: rate(5 minutes)
+      - schedule:
+        enabled: false
+        rate: rate(5 minutes)
   hello:
     handler: handler.hello
     events:

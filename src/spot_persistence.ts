@@ -12,12 +12,15 @@ interface PersistenceResult {
 export async function persistSpot(): Promise<PersistenceResult> {
   const spotResponse = await SpotAPI.getLatestMessages(spotFeedId)
 
-  saveResponseToS3(spotResponse)
+  const backup = saveResponseToS3(spotResponse)
 
   if (SpotAPI.isError(spotResponse)) {
+    await backup
     return {success: false, message: `Error from SPOT API: ${spotResponse.response.errors.error.text}`}
   } else {
-    return await persistMessagesToMongo(spotResponse.response.feedMessageResponse.messages.message)
+    const mongoResult = persistMessagesToMongo(spotResponse.response.feedMessageResponse.messages.message)
+    await backup
+    return await mongoResult
   }
 }
 

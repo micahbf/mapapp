@@ -3,7 +3,7 @@ import { backupS3Bucket } from './config'
 
 const s3 = new S3()
 
-export function backupToS3(name: string, obj: any) {
+export async function backupToS3(name: string, obj: any) {
   const currentTime = new Date().toISOString()
   const key = `${currentTime}_${name}.json`
   let body: string
@@ -14,12 +14,10 @@ export function backupToS3(name: string, obj: any) {
     body = JSON.stringify(obj)
   }
 
-  s3.putObject({Key: key, Bucket: backupS3Bucket, Body: body}, (err) => {
-    if (err) {
-      console.log(err)
-      return false
-    } else {
-      return true
-    }
-  })
+  try {
+    return await s3.putObject({Key: key, Bucket: backupS3Bucket, Body: body}).promise()
+  } catch (e) {
+    console.log(e)
+    return false
+  }
 }

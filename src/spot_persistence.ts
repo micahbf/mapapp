@@ -29,7 +29,7 @@ export async function persistMessagesToMongo(messages: SpotAPI.Message[]): Promi
     const insertResult = await db.collection(mongoCollectionName).insertMany(formatted, {ordered: false})
     return {success: true, message: `Inserted ${insertResult.insertedCount} messages`}
   } catch (e) {
-    if (e.result.result.ok === 1) {
+    if (e.code === 11000 && e.result.result.ok === 1) { // duplicate key error
       const inserted = e.result.result.nInserted
       return {success: true, message: `Inserted ${inserted} messages`}
     } else {

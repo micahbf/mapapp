@@ -10,6 +10,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs10.x
+  stage: prod
 
 envVars: &envVars
   MONGO_URL: ${s3:mapapp-secrets/MONGO_URL}

@@ -16,6 +16,7 @@ export function backupToS3(name: string, obj: any) {
 
   s3.putObject({Key: key, Bucket: backupS3Bucket, Body: body}, (err) => {
     if (err) {
+      console.log(err)
       return false
     } else {
       return true

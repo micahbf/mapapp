@@ -39,5 +39,9 @@ export async function persistMessagesToMongo(messages: SpotAPI.Message[]): Promi
 }
 
 async function saveResponseToS3(response: SpotAPI.FeedResponse) {
-  backupToS3(`Spot_Response_${spotFeedId}`, response)
+  try {
+    backupToS3(`Spot_Response_${spotFeedId}`, response)
+  } catch (e) {
+    console.log(e)
+  }
 }

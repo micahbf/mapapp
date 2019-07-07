@@ -23,8 +23,8 @@ functions:
       <<: *envVars
     events:
       - schedule:
-        enabled: false
-        rate: rate(5 minutes)
+        enabled: true
+        rate: rate(30 minutes)
   hello:
     handler: handler.hello
     events:

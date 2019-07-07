@@ -9,21 +9,27 @@ provider:
   name: aws
   runtime: nodejs10.x
   stage: prod
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "s3:PutObject"
+      Resource: "arn:aws:s3:::${s3:mapapp-secrets/S3_BACKUP_BUCKET}/*"
+
 
 package:
   individually: true
 
 custom:
   webpack:
-    packager: 'yarn'
-    excludeFiles: 'src/**/*.spec.ts'
+    packager: "yarn"
+    excludeFiles: "src/**/*.spec.ts"
     includeModules:
       forceExclude:
         - aws-sdk
   customDomain:
     domainName: mapapp.micah.motorcycles
     stage: prod
-    basePath: ''
+    basePath: ""
     certificateName: mapapp.micah.motorcycles
     createRoute53Record: false
 

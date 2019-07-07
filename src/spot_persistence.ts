@@ -1,10 +1,8 @@
+import { mongoCollectionName, spotFeedId } from './config'
 import { mongoDb } from './mongo_client'
 import { backupToS3 } from './s3_backup'
 import { SpotAPI } from './spot_api'
 import { formatSpotMessage } from './spot_format'
-
-const feedId = process.env.SPOT_FEED_ID
-const collectionName = 'spotTracks'
 
 interface PersistenceResult {
   success: boolean
@@ -12,7 +10,7 @@ interface PersistenceResult {
 }
 
 export async function persistSpot(): Promise<PersistenceResult> {
-  const spotResponse = await SpotAPI.getLatestMessages(feedId)
+  const spotResponse = await SpotAPI.getLatestMessages(spotFeedId)
 
   saveResponseToS3(spotResponse)
 
@@ -28,7 +26,7 @@ async function persistMessagesToMongo(messages: SpotAPI.Message[]): Promise<Pers
 
   try {
     const db = await mongoDb()
-    const insertResult = await db.collection(collectionName).insertMany(formatted, {ordered: false})
+    const insertResult = await db.collection(mongoCollectionName).insertMany(formatted, {ordered: false})
     return {success: true, message: `Inserted ${insertResult.insertedCount} messages`}
   } catch (e) {
     return {success: false, message: `Mongo error: ${e.message}`}
@@ -36,5 +34,5 @@ async function persistMessagesToMongo(messages: SpotAPI.Message[]): Promise<Pers
 }
 
 async function saveResponseToS3(response: SpotAPI.FeedResponse) {
-  backupToS3(`Spot_Response_${feedId}`, response)
+  backupToS3(`Spot_Response_${spotFeedId}`, response)
 }

@@ -1,6 +1,6 @@
 import { S3 } from 'aws-sdk'
+import { backupS3Bucket } from './config'
 
-const bucket = process.env.BACKUP_S3_BUCKET
 const s3 = new S3()
 
 export function backupToS3(name: string, obj: any) {
@@ -14,7 +14,7 @@ export function backupToS3(name: string, obj: any) {
     body = JSON.stringify(obj)
   }
 
-  s3.putObject({Key: key, Bucket: bucket, Body: body}, (err) => {
+  s3.putObject({Key: key, Bucket: backupS3Bucket, Body: body}, (err) => {
     if (err) {
       return false
     } else {

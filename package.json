@@ -6,7 +6,7 @@
   "scripts": {
     "check": "tsc --noEmit",
     "test": "jest",
-    "lint": "tslint"
+    "lint": "tslint *.ts src/**/*.ts bin/**/*.ts"
   },
   "dependencies": {
     "aws-sdk": "^2.488.0",

@@ -11,9 +11,16 @@ provider:
   name: aws
   runtime: nodejs10.x
 
+envVars: &envVars
+  MONGO_URL: ${s3:mapapp-secrets/MONGO_URL}
+  S3_BACKUP_BUCKET: ${s3:mapapp-secrets/S3_BACKUP_BUCKET}
+  SPOT_FEED_ID: ${s3:mapapp-secrets/SPOT_FEED_ID}
+
 functions:
   persistSpot:
     handler: handler.scheduledPersistSpot
+    environment:
+      <<: *envVars
     events:
       - schedule:
         enabled: false

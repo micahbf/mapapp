@@ -2,7 +2,7 @@ import { mongoCollectionName, spotFeedId } from './config'
 import { mongoDb } from './mongo_client'
 import { backupToS3 } from './s3_backup'
 import { SpotAPI } from './spot_api'
-import { formatSpotMessage } from './spot_format'
+import { formatSpotMessage, FormattedMessage } from './spot_format'
 
 interface PersistenceResult {
   success: boolean
@@ -39,6 +39,26 @@ export async function persistMessagesToMongo(messages: SpotAPI.Message[]): Promi
       return {success: false, message: `Mongo error: ${e.message}`}
     }
   }
+}
+
+function constructQuery(from: Date | void, to: Date | void): {[key: string]: any} {
+  const query: {[key: string]: any} = {}
+
+  if (from || to) { query.time = {} }
+  if (from) { query.time.$gte = from }
+  if (to) { query.time.$lte = to }
+
+  return query
+}
+
+export async function getMessagesFromMongo(from?: Date | void, to?: Date | void): Promise<FormattedMessage[]> {
+  const db = await mongoDb()
+  const query = constructQuery(from, to)
+  return await db.
+    collection(mongoCollectionName).
+    find(query).
+    sort('time', 1).
+    toArray() as FormattedMessage[]
 }
 
 async function saveResponseToS3(response: SpotAPI.FeedResponse) {

@@ -1,6 +1,6 @@
 import { SpotAPI } from './spot_api'
 
-interface FormattedMessage {
+export interface FormattedMessage {
   _id: number
   time: Date
   point: GeoJSON.Point

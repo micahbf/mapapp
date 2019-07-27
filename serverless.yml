@@ -45,6 +45,14 @@ functions:
       <<: *envVars
     events:
       - schedule: rate(30 minutes)
+  realtimeTrack:
+    handler: src/handlers/realtime_track.handle
+    environment:
+      <<: *envVars
+    events:
+      - http:
+          method: get
+          path: realtime_track
   hello:
     handler: src/handlers/hello.handle
     events:

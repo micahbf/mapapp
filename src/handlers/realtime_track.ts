@@ -3,6 +3,7 @@ import 'source-map-support/register'
 import { isValidDateString, parseIsoDate } from '../date_utils'
 import { pointsToLineString, wrapWithFeature } from '../geojson'
 import { getMessagesFromMongo } from '../spot_persistence'
+import { corsHeaders } from './utils'
 
 export const handle: APIGatewayProxyHandler = async (event, _context) => {
   const queryParams = event.queryStringParameters
@@ -11,7 +12,8 @@ export const handle: APIGatewayProxyHandler = async (event, _context) => {
   if (paramErrors.length > 0) {
     return {
       statusCode: 400,
-      body: JSON.stringify({errors: paramErrors})
+      body: JSON.stringify({errors: paramErrors}),
+      headers: corsHeaders
     }
   }
 
@@ -25,7 +27,8 @@ export const handle: APIGatewayProxyHandler = async (event, _context) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify(geojson)
+    body: JSON.stringify(geojson),
+    headers: corsHeaders
   }
 }
 

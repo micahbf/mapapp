@@ -63,9 +63,3 @@ functions:
           method: get
           path: realtime_track
           cors: true
-  hello:
-    handler: src/handlers/hello.handle
-    events:
-      - http:
-          method: get
-          path: hello

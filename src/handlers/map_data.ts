@@ -1,7 +1,7 @@
 import { APIGatewayProxyHandler } from 'aws-lambda'
 import 'source-map-support/register'
 import { parseIsoDate } from '../date_utils'
-import { pointsToLineString, wrapWithFeature } from '../geojson'
+import { mapFeaturesFromMessages } from '../map_data'
 import { getMessagesFromMongo } from '../spot_persistence'
 import { validateFromTo } from './param_validations'
 import { defaultHeaders } from './utils'
@@ -23,12 +23,11 @@ export const handle: APIGatewayProxyHandler = async (event, _context) => {
   if (queryParams.to) { to = parseIsoDate(queryParams.to) }
 
   const messages = await getMessagesFromMongo(from, to)
-  const points = messages.map(msg => msg.point)
-  const geojson = wrapWithFeature(pointsToLineString(points))
+  const mapData = mapFeaturesFromMessages(messages)
 
   return {
     statusCode: 200,
-    body: JSON.stringify(geojson),
+    body: JSON.stringify(mapData),
     headers: defaultHeaders
   }
 }

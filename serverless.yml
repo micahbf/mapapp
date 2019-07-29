@@ -39,6 +39,15 @@ envVars: &envVars
   SPOT_FEED_ID: ${s3:mapapp-secrets/SPOT_FEED_ID}
 
 functions:
+  mapData:
+    handler: src/handlers/map_data.handle
+    environment:
+      <<: *envVars
+    events:
+      - http:
+          method: get
+          path: map_data
+          cors: true
   persistSpot:
     handler: src/handlers/scheduled_persist_spot.handle
     environment:

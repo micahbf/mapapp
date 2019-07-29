@@ -1,5 +1,5 @@
 import formattedMessages from '../test/formatted_messages'
-import { dateStringFromDate } from './date_utils'
+import { zonedDateStringFromDate, zonedHumanDate } from './date_utils'
 import {
   eachConsecutivePair,
   lastMessagePerDay,
@@ -8,11 +8,16 @@ import {
 
 describe('lastMessagePerDay', () => {
   const output = lastMessagePerDay(formattedMessages)
-  const daysPresent = output.map(msg => dateStringFromDate(msg.time))
+  const daysPresent = output.map(msg => zonedDateStringFromDate(msg.time))
 
   it('returns the last message for each intermediate day', () => {
-    expect(output.length).toEqual(5)
-    expect(output[0]._id).toEqual(1234888832)
+    expect(output.length).toEqual(4)
+    expect(output[0]._id).toEqual(1234974817)
+  })
+
+  it('uses the America/Mexico_City time zone', () => {
+    const zonedHumanDates = output.map(msg => zonedHumanDate(msg.time))
+    expect(zonedHumanDates).toEqual(['Jul 10', 'Jul 11', 'Jul 14', 'Jul 15'])
   })
 
   it('does not return messages for days which had no message', () => {
@@ -52,7 +57,7 @@ describe('mapFeaturesFromMessages', () => {
 
   it('returns a Feature for each endOfDay point', () => {
     const endOfDays = output.features.filter(feat => feat.properties.class === 'endOfDay')
-    expect(endOfDays.length).toEqual(5)
+    expect(endOfDays.length).toEqual(4)
     expect(endOfDays[0].geometry.type).toEqual('Point')
     expect(endOfDays[0].properties.name).toEqual('Jul 10')
   })

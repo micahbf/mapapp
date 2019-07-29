@@ -1,4 +1,4 @@
-import { dateStringFromDate, humanDate, humanTime } from './date_utils'
+import { zonedDateStringFromDate, zonedHumanDate, zonedHumanTime } from './date_utils'
 import { collectFeatures, pointsToLineString, wrapWithFeature } from './geojson'
 import { FormattedMessage } from './spot_format'
 
@@ -18,7 +18,7 @@ function tracklineFromMessages(messages: FormattedMessage[]): GeoJSON.Feature {
 function dayPointsFromMessages(messages: FormattedMessage[]): GeoJSON.Feature[] {
   const lastMessages = lastMessagePerDay(messages)
   return lastMessages.map((msg) => {
-    return wrapWithFeature(msg.point, {name: humanDate(msg.time),
+    return wrapWithFeature(msg.point, {name: zonedHumanDate(msg.time),
                                        isoTime: msg.time.toISOString(),
                                        class: 'endOfDay'})
   })
@@ -26,7 +26,7 @@ function dayPointsFromMessages(messages: FormattedMessage[]): GeoJSON.Feature[] 
 
 function lastUpdatePointFromMessages(messages: FormattedMessage[]): GeoJSON.Feature {
   const lastMessage = messages[messages.length - 1]
-  return wrapWithFeature(lastMessage.point, {name: `Last Update: ${humanTime(lastMessage.time)}`,
+  return wrapWithFeature(lastMessage.point, {name: `Last Update: ${zonedHumanTime(lastMessage.time)}`,
                                              isoTime: lastMessage.time.toISOString(),
                                              class: 'lastUpdate'})
 }
@@ -34,7 +34,7 @@ function lastUpdatePointFromMessages(messages: FormattedMessage[]): GeoJSON.Feat
 export function lastMessagePerDay(messages: FormattedMessage[]): FormattedMessage[] {
   const msgPairs = eachConsecutivePair(messages)
   const dayPairs = msgPairs.filter(
-    ([msgA, msgB]) => dateStringFromDate(msgA.time) !== dateStringFromDate(msgB.time)
+    ([msgA, msgB]) => zonedDateStringFromDate(msgA.time) !== zonedDateStringFromDate(msgB.time)
   )
   return dayPairs.map(([msgA, _msgB]) => msgA)
 }

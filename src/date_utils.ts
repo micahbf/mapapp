@@ -12,11 +12,13 @@ export function parseIsoDate(dateString: string): Date {
   return new Date(dateString)
 }
 
-export function dateStringFromDate(date: Date): string {
-  return date.toISOString().slice(0, 10)
+export function zonedDateStringFromDate(date: Date): string {
+  const zonedDateString = date.toLocaleDateString('en-GB', {timeZone: TIME_ZONE})
+  const [day, month, year] = zonedDateString.split('/')
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
 }
 
-export function humanDate(date: Date): string {
+export function zonedHumanDate(date: Date): string {
   const options = {
     timeZone: TIME_ZONE,
     month: 'short',
@@ -26,7 +28,7 @@ export function humanDate(date: Date): string {
   return date.toLocaleDateString('en-US', options)
 }
 
-export function humanTime(date: Date): string {
+export function zonedHumanTime(date: Date): string {
   const options = {
     timeZone: TIME_ZONE,
     weekday: 'short',

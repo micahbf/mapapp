@@ -1,28 +1,28 @@
 import {
-  dateStringFromDate,
-  humanDate,
-  humanTime,
-  isValidDateString
+  isValidDateString,
+  zonedDateStringFromDate,
+  zonedHumanDate,
+  zonedHumanTime
 } from './date_utils'
 
-describe('dateStringFromDate', () => {
-  it('returns the date portion of a date in ISO format', () => {
+describe('zonedDateStringFromDate', () => {
+  it('returns the date portion of a date in ISO format in Central time', () => {
     const input = new Date('1995-12-17T03:24:00Z')
-    expect(dateStringFromDate(input)).toEqual('1995-12-17')
+    expect(zonedDateStringFromDate(input)).toEqual('1995-12-16')
   })
 })
 
-describe('humanDate', () => {
+describe('zonedHumanDate', () => {
   it('returns a short, human readable date in Central time', () => {
     const input = new Date('1995-12-17T03:24:00Z')
-    expect(humanDate(input)).toEqual('Dec 16')
+    expect(zonedHumanDate(input)).toEqual('Dec 16')
   })
 })
 
-describe('humanTime', () => {
+describe('zonedHumanTime', () => {
   it('returns a short, human readable time in Central time', () => {
     const input = new Date('1995-12-17T03:24:00Z')
-    expect(humanTime(input)).toEqual('Sat, Dec 16, 9:24 PM')
+    expect(zonedHumanTime(input)).toEqual('Sat, Dec 16, 9:24 PM')
   })
 })
 

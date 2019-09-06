@@ -1,8 +1,6 @@
 import formattedMessages from '../test/formatted_messages'
 import { zonedDateStringFromDate, zonedHumanDate } from './date_utils'
 import {
-  chunkBy,
-  eachConsecutivePair,
   lastMessagePerDay,
   mapFeaturesFromMessages
 } from './map_data'
@@ -30,22 +28,6 @@ describe('lastMessagePerDay', () => {
   })
 })
 
-describe('eachConsecutivePair', () => {
-  it('returns consecutive pairs from an array', () => {
-    const input = [1, 2, 3]
-    const expected = [[1, 2], [2, 3]]
-    expect(eachConsecutivePair(input)).toEqual(expected)
-  })
-
-  it('returns an empty array given an array of length 1', () => {
-    expect(eachConsecutivePair([1])).toEqual([])
-  })
-
-  it('returns an empty array given an empty array', () => {
-    expect(eachConsecutivePair([])).toEqual([])
-  })
-})
-
 describe('mapFeaturesFromMessages', () => {
   const output = mapFeaturesFromMessages(formattedMessages)
 
@@ -68,24 +50,5 @@ describe('mapFeaturesFromMessages', () => {
     expect(lastUpdate).toBeDefined()
     expect(lastUpdate.geometry.type).toEqual('Point')
     expect(lastUpdate.properties.name).toEqual('Last Update: Tue, Jul 16, 5:08 PM')
-  })
-})
-
-describe('chunkBy', () => {
-  const chunkFn = (a, b) => a !== b
-
-  it('returns chunks delineated by chunkFn', () => {
-    const input = [1, 1, 2, 3, 3]
-    expect(chunkBy(input, chunkFn)).toEqual([[1, 1], [2], [3, 3]])
-  })
-
-  it('returns a single chunk if given a single element', () => {
-    const input = [1]
-    expect(chunkBy(input, chunkFn)).toEqual([[1]])
-  })
-
-  it('returns an empty array when given an empty array', () => {
-    const input = []
-    expect(chunkBy(input, chunkFn)).toEqual([])
   })
 })

@@ -53,7 +53,7 @@ functions:
     environment:
       <<: *envVars
     events:
-      - schedule: rate(30 minutes)
+      - schedule: rate(5 minutes)
   realtimeTrack:
     handler: src/handlers/realtime_track.handle
     environment:

@@ -48,6 +48,15 @@ functions:
           method: get
           path: map_data
           cors: true
+  gpx:
+    handler: src/handlers/gpx.handle
+    environment:
+      <<: *envVars
+    events:
+      - http:
+          method: get
+          path: gpx
+          cors: true
   persistSpot:
     handler: src/handlers/scheduled_persist_spot.handle
     environment:

@@ -5,7 +5,7 @@ import { FormattedMessage } from './spot_format'
 export function mapBounds(messages: FormattedMessage[], days: number): [Position, Position] {
   const lastUpdate = messages[messages.length - 1]
   const lastMessagesPerDay = lastMessagePerDay(messages)
-  const targetBound = lastMessagesPerDay.reverse()[lastMessagesPerDay.length - days]
+  const targetBound = lastMessagesPerDay[lastMessagesPerDay.length - days]
   return [targetBound.point.coordinates, lastUpdate.point.coordinates]
 }
 

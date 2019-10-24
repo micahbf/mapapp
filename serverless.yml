@@ -48,6 +48,15 @@ functions:
           method: get
           path: map_data
           cors: true
+  mapMetadata:
+    handler: src/handlers/map_metadata.handle
+    environment:
+      <<: *envVars
+    events:
+      - http:
+          method: get
+          path: map_metadata
+          cors: true
   gpx:
     handler: src/handlers/gpx.handle
     environment:

@@ -32,7 +32,7 @@ function dayPointsFromMessages(messages: FormattedMessage[]): GeoJSON.Feature[] 
   })
 }
 
-function lastUpdatePointFromMessages(messages: FormattedMessage[]): GeoJSON.Feature {
+export function lastUpdatePointFromMessages(messages: FormattedMessage[]): GeoJSON.Feature {
   const lastMessage = messages[messages.length - 1]
   return wrapWithFeature(lastMessage.point, {name: `Last Update: ${zonedHumanTime(lastMessage.time)} (Central Time)`,
                                              isoTime: lastMessage.time.toISOString(),

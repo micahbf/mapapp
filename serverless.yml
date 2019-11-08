@@ -14,6 +14,14 @@ provider:
       Action:
         - "s3:PutObject"
       Resource: "arn:aws:s3:::${s3:mapapp-secrets/S3_BACKUP_BUCKET}/*"
+    - Effect: Allow
+      Action:
+        - "s3:PutObject"
+      Resource: "arn:aws:s3:::mapapp-cache/*"
+    - Effect: Allow
+      Action:
+        - "s3:PutObjectAcl"
+      Resource: "arn:aws:s3:::mapapp-cache/*"
   apiGateway:
     minimumCompressionSize: 1024
 
@@ -36,8 +44,10 @@ custom:
     createRoute53Record: false
 
 envVars: &envVars
+  CACHE_FROM: "2019-09-30T00:00:00.000Z"
   MONGO_URL: ${s3:mapapp-secrets/MONGO_URL}
   S3_BACKUP_BUCKET: ${s3:mapapp-secrets/S3_BACKUP_BUCKET}
+  S3_CACHE_BUCKET: mapapp-cache
   SPOT_FEED_ID: ${s3:mapapp-secrets/SPOT_FEED_ID}
 
 functions:
@@ -74,6 +84,7 @@ functions:
       <<: *envVars
     events:
       - schedule: rate(5 minutes)
+    timeout: 15
   realtimeTrack:
     handler: src/handlers/realtime_track.handle
     environment:

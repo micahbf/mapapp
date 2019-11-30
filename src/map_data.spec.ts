@@ -49,6 +49,6 @@ describe('mapFeaturesFromMessages', () => {
     const lastUpdate = output.features.find(feat => feat.properties.class === 'lastUpdate')
     expect(lastUpdate).toBeDefined()
     expect(lastUpdate.geometry.type).toEqual('Point')
-    expect(lastUpdate.properties.name).toEqual('Last Update: Tue, Jul 16, 5:08 PM')
+    expect(lastUpdate.properties.name).toEqual('Last Update: Tue, Jul 16, 5:08 PM (CT)')
   })
 })

@@ -4,7 +4,7 @@ import { backupToS3 } from './s3_backup'
 import { SpotAPI } from './spot_api'
 import { formatSpotMessage, FormattedMessage } from './spot_format'
 
-interface PersistenceResult {
+export interface PersistenceResult {
   success: boolean
   message: string
 }

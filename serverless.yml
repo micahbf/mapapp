@@ -46,6 +46,7 @@ custom:
 envVars: &envVars
   CACHE_FROM: "2019-09-30T00:00:00.000Z"
   MONGO_URL: ${s3:mapapp-secrets/MONGO_URL}
+  PERSIST_PASSWORD: ${s3:mapapp-secrets/PERSIST_PASSWORD}
   S3_BACKUP_BUCKET: ${s3:mapapp-secrets/S3_BACKUP_BUCKET}
   S3_CACHE_BUCKET: mapapp-cache
   SPOT_FEED_ID: ${s3:mapapp-secrets/SPOT_FEED_ID}
@@ -77,6 +78,15 @@ functions:
       - http:
           method: get
           path: gpx
+          cors: true
+  oneOffPersist:
+    handler: src/handlers/one_off_persist.handle
+    environment:
+      <<: *envVars
+    events:
+      - http:
+          method: post
+          path: one_off_persist
           cors: true
   persistSpot:
     handler: src/handlers/scheduled_persist_spot.handle

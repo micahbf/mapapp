@@ -5,7 +5,7 @@ export interface FormattedMessage {
   time: Date
   point: GeoJSON.Point
   messageType: string
-  originalMessage: SpotAPI.Message
+  originalMessage?: SpotAPI.Message
 }
 
 export function formatSpotMessage(msg: SpotAPI.Message): FormattedMessage {

@@ -13,8 +13,8 @@ export function parseIsoDate(dateString: string): Date {
 }
 
 export function zonedDateStringFromDate(date: Date): string {
-  const zonedDateString = date.toLocaleDateString('en-GB', {timeZone: TIME_ZONE})
-  const [day, month, year] = zonedDateString.split('/')
+  const zonedDateString = date.toLocaleDateString('en-US', {timeZone: TIME_ZONE})
+  const [month, day, year] = zonedDateString.split('/')
   return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
 }
 

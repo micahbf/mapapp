@@ -15,7 +15,8 @@
     "gpx-builder": "^2.0.1",
     "mongodb": "^3.2.7",
     "source-map-support": "^0.5.10",
-    "typed-rest-client": "^1.5.0"
+    "typed-rest-client": "^1.5.0",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",

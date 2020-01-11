@@ -26,7 +26,10 @@ export async function persistSpot(): Promise<PersistenceResult> {
 
 export async function persistMessagesToMongo(messages: SpotAPI.Message[]): Promise<PersistenceResult> {
   const formatted = messages.map(m => formatSpotMessage(m))
+  return persistFormattedMessagesToMongo(formatted)
+}
 
+export async function persistFormattedMessagesToMongo(formatted: FormattedMessage[]): Promise<PersistenceResult> {
   try {
     const db = await mongoDb()
     const insertResult = await db.collection(mongoCollectionName).insertMany(formatted, {ordered: false})

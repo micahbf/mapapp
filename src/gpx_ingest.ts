@@ -42,6 +42,8 @@ export function filterByTimeGap(trksegs: JsTrkSeg[], gapSecs: number): JsTrkSeg[
     if (idx === allSegs.length - 1) { return [...filtered, trkseg] } // always return last segment
 
     const last: JsTrkSeg = filtered[filtered.length - 1]
+    if (last.lon === trkseg.lon && last.lat === trkseg.lat) { return filtered }
+
     const timeDiff = (trkseg.time.getTime() - last.time.getTime()) / 1000
     if (timeDiff >= gapSecs) { return [...filtered, trkseg] }
 

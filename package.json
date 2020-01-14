@@ -6,6 +6,7 @@
   "main": "handler.js",
   "scripts": {
     "check": "tsc --noEmit",
+    "import-gpx": "ts-node bin/import_gpx.ts",
     "test": "jest",
     "lint": "tslint *.ts src/**/*.ts bin/**/*.ts"
   },

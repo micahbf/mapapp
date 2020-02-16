@@ -61,6 +61,7 @@ functions:
           method: get
           path: map_data
           cors: true
+    timeout: 15
   mapMetadata:
     handler: src/handlers/map_metadata.handle
     environment:
@@ -94,7 +95,7 @@ functions:
       <<: *envVars
     events:
       - schedule: rate(5 minutes)
-    timeout: 15
+    timeout: 600
   realtimeTrack:
     handler: src/handlers/realtime_track.handle
     environment:

@@ -1,5 +1,5 @@
 import { S3 } from 'aws-sdk'
-import { cacheFrom, cacheS3Bucket } from './config'
+import { cacheFrom, cacheS3Bucket, cacheTo } from './config'
 import { mapFeaturesFromMessages } from './map_data'
 import { lastUpdateCaption, mapBounds } from './map_metadata'
 import { getMessagesFromMongo } from './spot_persistence'
@@ -7,7 +7,7 @@ import { getMessagesFromMongo } from './spot_persistence'
 const s3 = new S3()
 
 export async function cacheToS3() {
-  const messages = await getMessagesFromMongo(cacheFrom)
+  const messages = await getMessagesFromMongo(cacheFrom, cacheTo)
   const bounds = mapBounds(messages, 2)
   const updateCaption = lastUpdateCaption(messages)
   const metadata = JSON.stringify({bounds, updateCaption})
@@ -16,7 +16,7 @@ export async function cacheToS3() {
   const commonS3Params = {
     ACL:          'public-read',
     Bucket:       cacheS3Bucket,
-    CacheControl: 'maxage=120',
+    CacheControl: 'maxage=86400',
     ContentType:  'application/json'
   }
 

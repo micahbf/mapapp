@@ -5,6 +5,7 @@ config()
 
 export const backupS3Bucket = process.env.S3_BACKUP_BUCKET
 export const cacheFrom = parseIsoDate(process.env.CACHE_FROM)
+export const cacheTo = parseIsoDate(process.env.CACHE_TO)
 export const cacheS3Bucket = process.env.S3_CACHE_BUCKET
 export const mongoUrl = process.env.MONGO_URL
 export const mongoCollectionName = process.env.MONGO_COLLECTION || 'spotTracks'

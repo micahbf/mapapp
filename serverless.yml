@@ -45,6 +45,7 @@ custom:
 
 envVars: &envVars
   CACHE_FROM: "2019-09-30T00:00:00.000Z"
+  CACHE_TO: "2020-03-17T00:00:00.000Z"
   MONGO_URL: ${s3:mapapp-secrets/MONGO_URL}
   PERSIST_PASSWORD: ${s3:mapapp-secrets/PERSIST_PASSWORD}
   S3_BACKUP_BUCKET: ${s3:mapapp-secrets/S3_BACKUP_BUCKET}
@@ -94,7 +95,7 @@ functions:
     environment:
       <<: *envVars
     events:
-      - schedule: rate(5 minutes)
+      - schedule: rate(30 minutes)
     timeout: 600
   realtimeTrack:
     handler: src/handlers/realtime_track.handle

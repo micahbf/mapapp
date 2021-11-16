@@ -11,7 +11,7 @@
     "lint": "tslint *.ts src/**/*.ts bin/**/*.ts"
   },
   "dependencies": {
-    "aws-sdk": "^2.488.0",
+    "aws-sdk": "^2.814.0",
     "dotenv": "^8.0.0",
     "gpx-builder": "^2.0.1",
     "mongodb": "^3.2.7",
